@@ -19,3 +19,6 @@
 - **Starting a Docker Container**
   - Run command `docker run <image_id>` to run the image built
   - To map a port exposed by container, use `-p <host_port>:<container_port>` in `docker run` command. Example: `docker run -p 3000:3000 <image_id>`
+- **Listing and stopping a Docker Container**
+  - Run command `docker ps` to list all running containers
+  - Run command `docker stop <container_name>` to stop the required container. The container name is present in output of command where we list running containers
