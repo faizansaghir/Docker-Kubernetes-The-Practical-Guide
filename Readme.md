@@ -30,3 +30,12 @@
   - Some images expose a shell like `node` which when created using `docker run <image_id/image_name>` will exit without doing much
   - To list all containers(running and stopped), use: `docker ps -a` where `ps` -> process
   - To interact with shell of an image, use `docker run -it <image_id/ image_name>` where `-i` -> interactive and `-t` -> pseudo terminal
+- **Creating custom Docker image**
+  - Dockerfile contains details of how we want to build our custom Docker image
+  - `FROM` allows you to build our image on top of existing/ available image. We can build from scratch without `FROM` i.e. without building on top of other docker image, but we usually take some base OS or other image to start. The `FROM <image_id/ image_name>` can be of any image that exists on DockerHub or on our local system
+  - `WORKDIR` to specify which is the workin directory to be set as context with syntax `WORKDIR <path_inside_image>` eg: `WORKDIR /app` to make `/app` as current working directory
+  - `COPY` to copy a file from local to some path inside image with syntax `COPY <local_path> <image_path>` eg: `COPY . /app` means copy all files from current folder to `/app` path in the image. We can also use `COPY . ./` to copy all files from current directory where Dockerfile is to current working directory of image
+  - `RUN` to run a command in the image while cuilding the image with syntax `RUN <command>` eg: `RUN npm install`. This will run command with current working directory of image as context
+  - `EXPOSE` to expose a port from container to external world with syntax `EXPOSE <port>` eg: `EXPOSE 80`
+  - `CMD` to run a command when a container is created using the image. The command will then run when container is created and image is deployed on it. Syntax `CMD [<command>]` eg: `CMD ["node","server.js"]`
+  - See example of [Dockerfile](https://github.com/faizansaghir/Docker-Kubernetes-The-Practical-Guide/blob/main/Module%202/nodejs-app-starting-setup/Dockerfile)
