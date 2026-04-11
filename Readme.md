@@ -70,7 +70,7 @@
   - To remove an usused image, use `docker rmi <image_id>` eg: `docker rmi 055ca80cc65c`
   - We can also remove multiple images using space separated image ids eg: `docker rmi 3ea9121a2c90 253dd19a27ed 52144f5e65a7`
   - We can only remove images that are not being used either by running or stopped containers i.e. the image should not be in use or referenced by a container
-  - To remove all unused images, use `docker image prune`
+  - To remove all unused images without tag, use `docker image prune`. To delete all images with or without tag, use `docker image prune -a`
 - **Automatically removing containers when stopped**
   - To specify that a container should be removed on stopping, use `docker run --rm <docker_image>` where `--rm` -> remove eg: `docker run -p 3000:80 -d --rm 9f15553504fa`
 - **Getting details of an image**
