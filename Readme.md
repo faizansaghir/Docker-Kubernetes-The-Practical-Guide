@@ -84,3 +84,13 @@
   - To give a custom name to container instead of using randomly generated name, we can use: `docker run --name <container_name> <docker_image>` eg: `docker run -d --rm -p 3000:80 --name webapp 9f15553504fa`. We can then use this name for stoping and removing container if needed
   - An image has 2 parts to its name `<repository>:<tag>` where repository is something that tells the group of image like `node` while tag specified a specific version of image. Use `docker build -t <repository>:<tag> <dockerifle_path>` to build an image with a specific tag eg: `docker build -t webapp:latest .`
   - We can use the tag we provided to run a container with the image we created eg: `docker run -d --rm -p 3000:80 --name webapp-container webapp:latest`
+  - To rename an image use `docker tag <old_image_tag> <new_image_tag>` where we will create a new image as a copy of old image and both will exist eg: `docker 
+tag bmi-calculator:latest faizansaghir/bmi-calculator`
+- **Sharing docker images**
+  - We can share the docker image either by providing the Dockerfile and the required files to build the docker image or we can directly share the docker image using any image hosting service like Docker Hub(official Docker image repository)
+  - We can specify if an image can be public or private. Official images like `python` and `node` need authentication and other process for upload while custom images do not
+  - To push an image to Docker Hub use `docker push <image_name>` or in case of repository other than Docker Hub `docker push <repository_name>:<image_name>`
+  - To push an image to Docker Hub, we need to create an account in DockerHub, create a repository for that image repository or group and while creating image, we need to follow convention for tag as `<username>/<repository_name>:<tag>` eg: `docker push faizansaghir/bmi-calculator:latest`
+- **Authenticating Local for DockerHub**
+  - To login and authenticate your local system to Docker repository, use `docker login`
+  - To logout your user from local, use `docker logout`
