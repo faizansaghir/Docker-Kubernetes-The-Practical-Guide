@@ -91,6 +91,8 @@ tag bmi-calculator:latest faizansaghir/bmi-calculator`
   - We can specify if an image can be public or private. Official images like `python` and `node` need authentication and other process for upload while custom images do not
   - To push an image to Docker Hub use `docker push <image_name>` or in case of repository other than Docker Hub `docker push <repository_name>:<image_name>`
   - To push an image to Docker Hub, we need to create an account in DockerHub, create a repository for that image repository or group and while creating image, we need to follow convention for tag as `<username>/<repository_name>:<tag>` eg: `docker push faizansaghir/bmi-calculator:latest`
+  - We can either do `docker pull` to pull the image, this will update the latest tag image if any new push has been made
+  - We can also use `docker run <image_name>` to pull an image if not present locally and run a container. However, this will only pull latest changes if not already present in local. If the image is present on local, it will not check for latest update, rather it will use the one available
 - **Authenticating Local for DockerHub**
   - To login and authenticate your local system to Docker repository, use `docker login`
   - To logout your user from local, use `docker logout`
