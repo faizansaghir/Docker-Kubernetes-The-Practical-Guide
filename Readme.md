@@ -40,3 +40,15 @@
   - Every instruction of Dockerfile represents a layer of docker image. While building an image, if docker has previously built an image without change upto some step of Dockerfile and nothing has changed up to that command, it will reuse the result from cache and only start re-evaluating from command where something has changed and subsequent commands that follow the command. Even file changes that are copied are detected by Docker during build
   - When we run a container, it creates a read/write layer on top of the image layer and the `CMD` command we provide executes
   - To optimize our build time, we can plan our Dockerfile definition smartly to use cached results for layers most of the time eg: When we have `COPY . /app` before `RUN npm install`, everytime we make a change to our source code, the cache will be invalidated for `RUN npm install` command also. Instead, if we have `COPY package.json /app` and then have `RUN npm install` followed by `COPY . /app`, we will use cached results till `RUN npm install` when our source code only changes, however, if we change `package.json`, it will invalidate the cache result from `COPY package.json /app` and subsequent layer. [An improved version of Dockerfile](https://github.com/faizansaghir/Docker-Kubernetes-The-Practical-Guide/blob/main/Module%202/nodejs-app-starting-setup-improved/Dockerfile)
+- **Staring a stopped container**
+  - We can also start a stopped container using `docker start <container_name>` eg: `docker start heuristic_greider`, this restarts the container.
+- **Atached and Detached mode**
+  - For `docker run` attached mode is default while for `docker start` detached mode is default.
+  - Attached mode means we are listening to output of container i.e. things being printed on console, so any console.log or similar statement will be shown when executed
+  - To run container in detached mode for new container, use `docker run -d <image_id>` where `-d` -> detached eg: `docker run 
+-d -p 8080:80 3ea9121a2c90167dd755f61984f3fb9d2fd4c4cb116af018165a08383a548199`
+  - To attach back to a detached container to see logs from current time and future logs, use `docker attach <container_name>` eg: `docker attach d7b7a1a4b536`
+  - To restart a container in attached mode, use `docker start -a <container_name>` where `-a` -> attached eg: `docker start -a heuristic_greider`
+- **Getting logs of container**
+  - To get past logs, use `docker logs <container_name>` eg: `docker logs heuristic_greider`
+  - To get past logs and also follow future logs, use `docker logs -f <docker_name>` eg: `docker logs -f heuristic_greider`
