@@ -26,6 +26,9 @@
   - See example of [Dockerfile](https://github.com/faizansaghir/Docker-Kubernetes-The-Practical-Guide/blob/main/Module%202/nodejs-app-starting-setup/Dockerfile)
   - To use the Dockerfile to build a docker image use `docker build <path_to_dockerfile>` eg: `docker build .` tells docker to use `Dockerfile` residing in current directory
   - At the end of execution of `docker build` command, you will get the ID of the image generated
+- **Listing images available locally**
+  - To list all images present on local(downloaded from hub or built locally), use `docker images`. This will only include tagged images
+  - To list all images tagged or untagged, use `docker images -a` where `-a` -> all
 - **Running an image on container**
   - To run a container with some iamge, use: `docker run <image_id/image_name>` eg: ` docker run 9f15553504fa81eec9f15553504fa81eecfc418a0dfff62f10e43a2a74c60fa3ab983bdcc3a2c0c54`
   - To interact with shell of an image, use `docker run -it <image_id/ image_name>` where `-i` -> interactive and `-t` -> pseudo terminal
@@ -54,8 +57,19 @@
   - To get past logs, use `docker logs <container_name>` eg: `docker logs heuristic_greider`
   - To get past logs and also follow future logs, use `docker logs -f <docker_name>` eg: `docker logs -f heuristic_greider`
 - **Interactive mode**
-  - Docker can be used to docarize simple utility applications like calculator also apart from long running process like web servers
+  - Docker can be used to docarize simple utility applications like calculator also apart from long running process like web servers eg: [Random number generator](https://github.com/faizansaghir/Docker-Kubernetes-The-Practical-Guide/blob/main/Module%202/python-app-starting-setup/rng.py)
   - When a program running inside container needs input from user, it needs to be in interactive mode so that STDIN can be open for the required input
   - To create a new container in interactive mode, use `docker run -i <docker_image>` eg: `docker run -i 53ac6e148dbf63719fe047fe8312bf30c71fe3774a91dcb4a2287e7229050686`
   - We should not have interactive mode with detach option as it will simply detach the container and you will not be able to input anything
   - To restart a container in interactive mode, use `docker start <container_name>` eg: `docker start -i 690583c16bf2`
+- **Cleaning up stopped containers**
+  - To remove a stopped container from memory and storage completely, use `docker rm <container_name>` eg: `docker rm thirsty_curran`
+  - We can also remove multiple containers using space separated container names eg: ` docker rm zealous_banach tender_golick mystifying_murdock`
+  - We can only remove containers which are not running, if we try to remove a running container, we get error
+- **Cleaning up unused images**
+  - To remove an usused image, use `docker rmi <image_id>` eg: `docker rmi 055ca80cc65c`
+  - We can also remove multiple images using space separated image ids eg: `docker rmi 3ea9121a2c90 253dd19a27ed 52144f5e65a7`
+  - We can only remove images that are not being used either by running or stopped containers i.e. the image should not be in use or referenced by a container
+  - To remove all unused images, use `docker image prune`
+- **Automatically removing containers when stopped**
+  - To specify that a container should be removed on stopping, use `docker run --rm <docker_image>` where `--rm` -> remove eg: `docker run -p 3000:80 -d --rm 9f15553504fa`
