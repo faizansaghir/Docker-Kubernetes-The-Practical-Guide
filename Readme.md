@@ -29,8 +29,9 @@
 - **Running an image on container**
   - To run a container with some iamge, use: `docker run <image_id/image_name>` eg: ` docker run 9f15553504fa81eec9f15553504fa81eecfc418a0dfff62f10e43a2a74c60fa3ab983bdcc3a2c0c54`
   - To interact with shell of an image, use `docker run -it <image_id/ image_name>` where `-i` -> interactive and `-t` -> pseudo terminal
-- **Listing running docker containers**
-  - To list all containers(running and stopped), use: `docker ps -a` where `ps` -> process and `-a` -> all containers(stopped also)
+- **Listing docker containers**
+  - To list running docker containers use `docker ps` where `ps` -> process
+  - To list all containers(running and stopped), use: `docker ps -a` where `-a` -> all containers(stopped also)
 - **Stopping a container**
   - To stop a container, use `docker stop <container_name>` eg: `docker stop eager_chatterjee`
 - **Publishing a port to local machine**
