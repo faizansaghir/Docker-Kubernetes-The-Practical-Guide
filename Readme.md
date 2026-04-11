@@ -73,3 +73,14 @@
   - To remove all unused images, use `docker image prune`
 - **Automatically removing containers when stopped**
   - To specify that a container should be removed on stopping, use `docker run --rm <docker_image>` where `--rm` -> remove eg: `docker run -p 3000:80 -d --rm 9f15553504fa`
+- **Getting details of an image**
+  - To get details of image like date created, layers, entrypoint, env variables, port exposed etc, use: `docker inspect <docker_image>` eg: `docker inspect 9f15553504fa`
+- **Copy file into and out of a container**
+  - We can copy file from local to a running container using `docker cp <source_path> <container_name>:<destination_path>` eg: `docker cp ..\..\test.txt serene_golick:/app/`
+  - We can copy file from cintainer to local using `docker cp <container_name>:<source_path> <destination_path>` eg: `docker cp serene_golick:/app/test.txt .`
+  - The folder wherer we are copying files should be present in container for command to execute successfully
+  - This can be used to update a file that is not currently running inside container to update for any changes and can also be used to get files like log files outside the container
+- **Naming and tagging images and containers**
+  - To give a custom name to container instead of using randomly generated name, we can use: `docker run --name <container_name> <docker_image>` eg: `docker run -d --rm -p 3000:80 --name webapp 9f15553504fa`. We can then use this name for stoping and removing container if needed
+  - An image has 2 parts to its name `<repository>:<tag>` where repository is something that tells the group of image like `node` while tag specified a specific version of image. Use `docker build -t <repository>:<tag> <dockerifle_path>` to build an image with a specific tag eg: `docker build -t webapp:latest .`
+  - We can use the tag we provided to run a container with the image we created eg: `docker run -d --rm -p 3000:80 --name webapp-container webapp:latest`
