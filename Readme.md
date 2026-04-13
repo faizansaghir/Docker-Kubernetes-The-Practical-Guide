@@ -97,13 +97,13 @@ tag bmi-calculator:latest faizansaghir/bmi-calculator`
   - To login and authenticate your local system to Docker repository, use `docker login`
   - To logout your user from local, use `docker logout`
  
-### Data and Volumes
+### Volumes and Bind Mounts
 - **Types of data**
   - <img width="720" height="406" alt="types_of_data" src="https://github.com/user-attachments/assets/db9ab687-ef90-440e-88fd-1c5bd6f7a46e" />
 - **Volumes**
   - When some data that is stored inside a container needs to be persisted even when container is stopped and removed, we can use Volumes
   - <img width="720" height="406" alt="volumes" src="https://github.com/user-attachments/assets/1d3d69bb-6d38-47a7-9a2a-378083862686" />
-  - We can specify that an image will use volume using `VOLUME ["vol1", "vol2"]` in the `Dockerfile` eg: `VOLUME ["/app/feedback"]`. Docker will then make sure this path mentioned is teated as external path that is mapped to some path in host machine. These are anonymous volumes.
+  - We can specify that an image will use volume using `VOLUME ["vol1", "vol2"]` in the `Dockerfile` eg: `VOLUME ["/app/feedback"]`. Docker will then make sure this path mentioned is teated as external path that is mapped to some path in host machine. These are anonymous volumes. We can also create anonymous volume using `docker run -v <path-inside_container>` and without specifying it inside `Dockerfile`
   - Volumes can be listed using `docker volume ls` and anonymous volumes have name as randomly generated UUID. These get deleted as soon as we stop the container if we use `--rm` during spin up
   - In case we do not use the `--rm` flag during spin up, the anonymous volume is persisted but when we spin up a new container with same image, a new anonymous volume is created and the earlier one is not re=used
   - To remove an unused anonymous volume, use `docker volume rm <volume_name>` or to remove all unused volumes, use `docker volume prune`
@@ -111,3 +111,7 @@ tag bmi-calculator:latest faizansaghir/bmi-calculator`
   - Named volumes do not need definition inside `Dockerfile` like anonymous volumes
   - We can create a named volume while spinning up a container using `docker run -v <named_volume_name>:<path_inside_container>` eg: `docker run -d -p 3000:80 --rm --name feedback-app -v feedback:/app/feedback feedback-node:volumes`
   - <img width="720" height="406" alt="volumes_and_bind_mounts" src="https://github.com/user-attachments/assets/778694f3-38de-43f6-a1b6-ce5933da3cf1" />
+  - A bind mount is created/ used when we want the data to persist and also be editable by us i.e. we know the location from where we can edit the shared files
+  - To create a bind mount, we use `docker run -v <absolute_path>:<path_in_container>` eg: `docker run --name feedback-app -p 3000:80 --rm -d -v feedback:/app/feedback -v "C:\Users\world\Desktop\Docker-Kubernetes-The-Practical-Guide\Docker-Kubernetes-The-Practical-Guide\Module 3\data-volumes-03-adj-node-code:/app" feedback-node:volumes`. We need to make sure that docker has access to the path we are creating mount to.
+  - When we create a volume or bind mount, we overwrite container filesystem with what we have present outside, so in our case, we created `node_modules` using `npm install` but then overwrote it using bind mount, thus `node_modules` folder gets deleted
+  - To overcome or persist a specific path inside container without being overwritten, we can use anonymous volumes. Docker gives preference to most specific path in case we use multiple volumes eg: `docker run --name feedback-app -p 3000:80 --rm -d -v feedback:/app/feedback -v "C:\Users\world\Desktop\Docker-Kubernetes-The-Practical-Guide\Docker-Kubernetes-The-Practical-Guide\Module 3\data-volumes-03-adj-node-code:/app" -v /app/node_modules feedback-node:volumes`, here it will create an anonymous volume for `/app/node_modules` which is more specific then it will create bind mount for `/app` and anonymous volume will take preference of `/app/node_modules` folder, hence it will not be deleted. Using this, we can achieve both preserving `/app/node_modules` and also binding `/app` folder for code changes without getting issue of `node_modules` not existing i.e. missing dependencies issue.
