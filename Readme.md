@@ -99,4 +99,8 @@ tag bmi-calculator:latest faizansaghir/bmi-calculator`
  
 ### Data and Volumes
 - **Types of data**
-  - <img width="720" height="406" alt="vm_vs_container" src="https://github.com/user-attachments/assets/db9ab687-ef90-440e-88fd-1c5bd6f7a46e" />
+  - <img width="720" height="406" alt="types_of_data" src="https://github.com/user-attachments/assets/db9ab687-ef90-440e-88fd-1c5bd6f7a46e" />
+- **Volumes**
+  - When some data that is stored inside a container needs to be persisted even when container is stopped and removed, we can use Volumes
+  - <img width="720" height="406" alt="volumes" src="https://github.com/user-attachments/assets/1d3d69bb-6d38-47a7-9a2a-378083862686" />
+
