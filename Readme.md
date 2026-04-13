@@ -96,3 +96,7 @@ tag bmi-calculator:latest faizansaghir/bmi-calculator`
 - **Authenticating Local for DockerHub**
   - To login and authenticate your local system to Docker repository, use `docker login`
   - To logout your user from local, use `docker logout`
+ 
+### Data and Volumes
+- **Types of data**
+  - <img width="720" height="406" alt="vm_vs_container" src="https://github.com/user-attachments/assets/db9ab687-ef90-440e-88fd-1c5bd6f7a46e" />
