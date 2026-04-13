@@ -103,4 +103,11 @@ tag bmi-calculator:latest faizansaghir/bmi-calculator`
 - **Volumes**
   - When some data that is stored inside a container needs to be persisted even when container is stopped and removed, we can use Volumes
   - <img width="720" height="406" alt="volumes" src="https://github.com/user-attachments/assets/1d3d69bb-6d38-47a7-9a2a-378083862686" />
-
+  - We can specify that an image will use volume using `VOLUME ["vol1", "vol2"]` in the `Dockerfile` eg: `VOLUME ["/app/feedback"]`. Docker will then make sure this path mentioned is teated as external path that is mapped to some path in host machine. These are anonymous volumes.
+  - Volumes can be listed using `docker volume ls` and anonymous volumes have name as randomly generated UUID. These get deleted as soon as we stop the container if we use `--rm` during spin up
+  - In case we do not use the `--rm` flag during spin up, the anonymous volume is persisted but when we spin up a new container with same image, a new anonymous volume is created and the earlier one is not re=used
+  - To remove an unused anonymous volume, use `docker volume rm <volume_name>` or to remove all unused volumes, use `docker volume prune`
+  - We have another type of volume which can be persisted even when container is deleted called named volumes. These are also mapped to some location on host machine by docker without user intervention
+  - Named volumes do not need definition inside `Dockerfile` like anonymous volumes
+  - We can create a named volume while spinning up a container using `docker run -v <named_volume_name>:<path_inside_container>` eg: `docker run -d -p 3000:80 --rm --name feedback-app -v feedback:/app/feedback feedback-node:volumes`
+  - <img width="720" height="406" alt="volumes_and_bind_mounts" src="https://github.com/user-attachments/assets/778694f3-38de-43f6-a1b6-ce5933da3cf1" />
