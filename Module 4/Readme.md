@@ -2,7 +2,7 @@
 
 - **Type of communication**
   - <img width="720" height="405" alt="Screenshot 2026-04-15 191353" src="https://github.com/user-attachments/assets/060c84a1-109a-4ec5-8478-9e1d5e7fcd31" />
-- **Netowrk request from container to WWW***
+- **Netowork request from container to WWW***
   - Out of the box, containers are able to communicate with WWW and needs to special setup.
   - We can simply use `curl` or `axios.get` or other such shell or language specific commands to communicate to the WWW
 - **Network request from container to Host machine**
