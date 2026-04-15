@@ -9,3 +9,26 @@
   - If we use `localhost` as our address/ domain eg: `mongodb://localhost:27017/swfavorites` for connecting to some service running on host machine, it will not be able to connect to it
   - To make sure container code is able to connect to service running on host machine, use `host.docker.internal` as address/ domain eg: `mongodb://host.docker.internal:27017/swfavorites`.
   - Docker resolves `host.docker.internal` to translate to IP of the host VM
+- **Network request from container to another container**
+  - We can create another container for testing container to container communication like mongoDB container using `docker run -d --name mongodb mongo`
+  - To communicate with another container, we need to know the IP address of the container we need to connect to. To get details of a container like IP address, use `docker container inspect <container_name>` eg: `docker container inspect mongodb`
+  - We can hardcode IP address of other container to talk to inside the code eg: `mongodb://172.17.0.2:27017/swfavorites` and then build the image and use it, however this has several issues like finding IP Address of other container manually and re-building the image in case of IP change
+- **Network in Docker**
+  - We can use network for container to container communication where we add all containers that need to communicate with one another into one network and then docker takes care of resolving the IP addresses of required container when communicating
+  - We can add a container to a network using `docker run --network <network_name>` eg: `docker run -d --name mongodb --rm --network favorites-net mongo`
+  - Docker does not automatically create a network if it does not exist hence if we try to add container to a network that does not exist, it will give us an error `docker: Error response from daemon: failed to set up container networking: network favorites-net not found`
+  - To create a network, use `docker network create <network_name>` eg: `docker network create favorites-net`
+  - To list all existing network, use `docker network ls`. We have some default pre created network also like `bridge`, `host` and `none`
+  - When a container is a part of network, other containers in the same network can communicate with it using container name as its address/ domain eg `mongodb://mongodb:27017/swfavorites` and docker will take care of resolving IP from the container name
+- **Container and Network Requests Summary**
+  - <img width="720" height="402" alt="Screenshot 2026-04-15 201042" src="https://github.com/user-attachments/assets/1f0cbc00-2b67-4d83-9cc5-4bf54fd90ade" />
+  - <img width="720" height="404" alt="Screenshot 2026-04-15 201343" src="https://github.com/user-attachments/assets/90835b1f-9e05-46a6-b6ae-37c4df128b06" />
+- **Network Drivers**
+  - Docker Networks actually support different kinds of "Drivers" which influence the behavior of the Network.
+  - Driver can be specified during network creation, using `docker network create --driver <driver_name> <network_name>` eg: `docker network create --driver bridge favorites-net`
+    - ***bridge***: Default driver. Containers can find each other by name if they are in the same Network
+    - ***host***: For standalone containers, isolation between container and host system is removed (i.e. they share localhost as a network)
+    - ***overlay***: Multiple Docker daemons (i.e. Docker running on different machines) are able to connect with each other. Only works in "Swarm" mode which is a dated / almost deprecated way of connecting multiple containers
+    - ***macvlan***: You can set a custom MAC address to a container - this address can then be used for communication with that container
+    - ***none***: All networking is disabled.
+    - ***Third-party plugins***: You can install third-party plugins which then may add all kinds of behaviors and functionalities
