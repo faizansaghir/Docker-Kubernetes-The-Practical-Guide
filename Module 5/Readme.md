@@ -1,1 +1,25 @@
+### Dockerized TODO app
 
+- **Overview**
+  - This project is microsrvice architecture based porject with 3 layer architecture
+  - Layers in project
+    - Frontend: Uses reactJS
+    - Backend: Uses expressJS
+    - Database: MongoDB
+- **Database layer**
+  - We can use simple mongo image from docker hub to spin up a container eg: `docker run -d --rm -p 27017:27017 --name mongodb mongo`
+  - This will allow any app running on local to connect to database using `localhost:27017`, say if node application is not containerized and is running on local, it can connect to the database
+- **Backend layer**
+  - Create a dockerfile and add instructions to build image eg: [Docekrfile](https://github.com/faizansaghir/Docker-Kubernetes-The-Practical-Guide/blob/main/Module%205/multi-01-starting-setup/backend/Dockerfile)
+  - Make sure the backend is made to connect to database using `host.docker.internal` address instead of `localhost` if database is only exposed in host machine
+  - Build image using dockerfile using `docker build -t todo-backend .`
+  - Run image in a container using `docker run -d --rm -p 80:80 --name todo-backend todo-backend`
+  - This will allow any app running on local to connect to backend using `localhost:80`, say if react application is not containerized and is running on local, it can connect to the backend
+- **Frontend layer**
+  - The react app also depends on node for getting dependencies and uses a command `npm start` which is defined in [package.json](https://github.com/faizansaghir/Docker-Kubernetes-The-Practical-Guide/blob/main/Module%205/multi-01-starting-setup/frontend/package.json)
+  - React by default runs on port 3000
+  - Create a dockerfile and add instructions to build image eg: [Docekrfile](https://github.com/faizansaghir/Docker-Kubernetes-The-Practical-Guide/blob/main/Module%205/multi-01-starting-setup/frontend/Dockerfile)
+  - Build image using dockerfile using `docker build -t todo-react .`
+  - While running, the server requies us to run in interactive mode using `-it` flag otherwise the react container stops immediately
+  - Run image in a container using `docker run -it --rm -p 3000:3000 --name todo-frontend todo-react`
+  - This will allow us to view frontend or react app using `localhost:3000`
