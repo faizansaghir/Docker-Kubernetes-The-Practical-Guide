@@ -23,3 +23,13 @@
   - While running, the server requies us to run in interactive mode using `-it` flag otherwise the react container stops immediately
   - Run image in a container using `docker run -it --rm -p 3000:3000 --name todo-frontend todo-react`
   - This will allow us to view frontend or react app using `localhost:3000`
+  - The react app though containerized, the server that serves the JS, HTML and CSS runs on docker but the API calls are being made from browser in host hence it does not need change in address from `localhost` if we exposed the backend port to host system
+- **Network and Container Communication**
+  - We can use network to remove publishing the port to host machine for database layer since only backend service needs to communicate with it and that runs inside docker container
+  - We can create a network and use it for inter container communication eg: `docker network create todo-net`
+  - We can run database container with network attached using `docker run -d --rm --network todo-net --name mongodb mongo`
+  - We need to update backend code to make sure it connects to mongodb container within the same network and rebuild the image
+  - We still need to publish backend server port to locahost since adding frontned container to network will not help as the react code which makes API calls still will run on browser
+  - We can run the backend container with network attached using `docker run -d --rm -p 80:80 --network todo-net --name todo-backend todo-backend`
+  - The frontend container still needs to be the same as the API server address still should be `localhost` since API calls are still made from browser and port is published from backend container to host. Attaching the frontend container to the network does not help in this case so we can skip it
+  
