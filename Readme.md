@@ -13,3 +13,5 @@
 ### [Dockerized TODO app](https://github.com/faizansaghir/Docker-Kubernetes-The-Practical-Guide/tree/main/Module%205)
 
 ### [Docker Compose](https://github.com/faizansaghir/Docker-Kubernetes-The-Practical-Guide/tree/main/Module%206)
+
+### [Utility Container](https://github.com/faizansaghir/Docker-Kubernetes-The-Practical-Guide/tree/main/Module%207)
