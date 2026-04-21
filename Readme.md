@@ -11,3 +11,5 @@
 ### [Containers and Network Requests](https://github.com/faizansaghir/Docker-Kubernetes-The-Practical-Guide/tree/main/Module%204)
 
 ### [Dockerized TODO app](https://github.com/faizansaghir/Docker-Kubernetes-The-Practical-Guide/tree/main/Module%205)
+
+### [Docker Compose](https://github.com/faizansaghir/Docker-Kubernetes-The-Practical-Guide/tree/main/Module%206)
