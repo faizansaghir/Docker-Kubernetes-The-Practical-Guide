@@ -6,7 +6,7 @@
 - **Using docker compose**
   - We can create a `docker-compose.yml` or `docker-compose.yaml` file
   - We then define the version of docker compose specification being used using `version: <specification-version>` eg: `version: "3.8"`. This allows docker to know which version is being used and what syntax will be followed and features that should be supported
-  - We then define the services. These are definition for containers ou will create. See [docker-compose.yaml](https://github.com/faizansaghir/Docker-Kubernetes-The-Practical-Guide/blob/main/Module%206/docker-compose.yaml) for sample. Hierarchy
+  - We then define the services. These are definition for containers ou will create. See [docker-compose.yaml](https://github.com/faizansaghir/Docker-Kubernetes-The-Practical-Guide/blob/main/Module%206/compose-01-starting-setup/docker-compose.yaml) for sample. Hierarchy
     ```
     services:
       <service-name>:
