@@ -1,1 +1,17 @@
 ### Utility Container
+
+- Utility container is not an official name. It is just a made up name
+- **Overview**
+  - When you want to build an application from scratch, you need some tools to be initialized/ installed to run crertain commands to start the project like `npm init` needs `npm` or node package manager to be installed
+  - This prerequisite defeats the purpose of docker since our system again needs specific version of dependencies to be installed
+- **Solution using utility containers**
+  - We can use containers with images to overcome this issue eg: We can run a node container using `docker run -it -d --name node-utility --rm node` which allows docker to create a container and keep it running.
+  - We can use this container to run commands `docker exec <container-name> <command>` to execute a command inside a running container without interrupting default command that is running the container eg: `docker exec node-utility npm version`
+  - If a command requires user input or interaction, we can execute using `-it` flags eg: `docker exec -it node-utility npm version`
+  - We can also run a container while overriding the default command using `docker run <image> <command>` eg: `docker run -it --rm --name node-utility node npm init`. This will start a node container which will run `npm init` in interactive mode and then create the project but it will stop after the command stops execution
+- **Creating utility containers**
+  - Define a `Dockerfile` and add instructions for creating the image with required dependencies and required working directory. Do not specify a `CMD` so that user gets flexibility to use this as per requirement. Sample [Dockerfile](https://github.com/faizansaghir/Docker-Kubernetes-The-Practical-Guide/blob/main/Module%207/node-util/Dockerfile)
+  - Build the image using `docker build` eg: `docker build -t node-util .`
+  - Use the image to run commands that affect your local also using bind mount eg: `docker run -it -v "C:\Users\world\Desktop\Docker-Kubernetes-The-Practical-Guide\Docker-Kubernetes-The-Practical-Guide\Module 7\node-util:/app" node-util npm init`
+  - We can also specify an `ENTRYPOINT` in dockerfile. This is different from `CMD` as anything that we specify after image name in `docker run <image> <command>` overwrites the commands in `CMD`, but when we specify `ENTRYPOINT`, the same command append to command specified in entrypoint. Sample [Dockerfile](https://github.com/faizansaghir/Docker-Kubernetes-The-Practical-Guide/blob/main/Module%207/npm-util/Dockerfile)
+  - We can then use `docker build -t node-util .` to build image and then create container and run required command  like `docker run -it -v "C:\Users\world\Desktop\Docker-Kubernetes-The-Practical-Guide\Docker-Kubernetes-The-Practical-Guide\Module 7\npm-util:/app" npm-util init` or `docker run -it -v "C:\Users\world\Desktop\Docker-Kubernetes-The-Practical-Guide\Docker-Kubernetes-The-Practical-Guide\Module 7\npm-util:/app" npm-util install express --save`
