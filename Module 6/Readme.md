@@ -1,1 +1,21 @@
 ### Docker Compose
+
+- **Overview**
+  - Docker compose is tool to make deployment easier for containers and building image
+  - It works with `Dockerfile` defined inside modules for building images and then helps replace complex multiple `docker run` and other docker commands
+- **Using docker compose**
+  - We can create a `docker-compose.yml` or `docker-compose.yaml` file
+  - We then define the version of docker compose specification being used using `version: <specification-version>` eg: `version: "3.8"`. This allows docker to know which version is being used and what syntax will be followed and features that should be supported
+  - We then define the services. These are definition for containers ou will create. See [docker-compose.yaml](https://github.com/faizansaghir/Docker-Kubernetes-The-Practical-Guide/blob/main/Module%206/docker-compose.yaml) for sample. Hierarchy
+    - services:
+      - <service name/ container name>:
+        - <configuration for containers like image to be used, volumes, environment variables, environment variable file, networks(only needed if we want to attach to some custom network else docker handles network part)>:
+  - Detached mode does not have equivalent command in docker compose, we can use `-d` while running docekr compose for detached mode
+  - We do not need to specify detached or remove flag in configuration as it is default bahvior of service when using docker compose
+  - Docker also creates a network and adds all the services to same network when we use docker compose to spin up containers
+  - Named volumes are to be specified separately parallel to `services` under `volumes`. Hierarchy
+    - volumes:
+      - <named-volume>:
+  - To run docker compose use `docker-compose up` while in the folder iof `docker-compose.yaml`. This runs containers in attached mode and can be exited using `Ctrl+C` or by pressing `d` if terminal allows detaching using `d`
+  - To run docker compose in detached mode, use `docker-compose up -d` and then bring down the setup using `docker-compose down`.
+  - To delete named volumes also, use `docker-compose down -v`
