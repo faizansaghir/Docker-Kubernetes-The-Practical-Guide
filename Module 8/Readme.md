@@ -12,3 +12,4 @@
     <service-name>:
       entrypoint: ["part1", "part2"]
   ```
+  - We do not have any such configuration for `RUN` and `COPY` etc. in docker compose file
