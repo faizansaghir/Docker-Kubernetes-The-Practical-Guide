@@ -17,3 +17,5 @@
 ### [Utility Container](https://github.com/faizansaghir/Docker-Kubernetes-The-Practical-Guide/tree/main/Module%207)
 
 ### [Larvel and PHP Dockerized project](https://github.com/faizansaghir/Docker-Kubernetes-The-Practical-Guide/tree/main/Module%208)
+
+### [Deploying docker containers](https://github.com/faizansaghir/Docker-Kubernetes-The-Practical-Guide/tree/main/Module%209)
